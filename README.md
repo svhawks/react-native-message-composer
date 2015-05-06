@@ -32,7 +32,7 @@ The following shows an example args object
 
 All the args parameters are optional. Simply omit any parameter not required from the args object.
 
-Messages will be sent as SMS or iMessage (depending on support of recipients phone), unless `subject` is supplied, in which case they will be sent as MMS or iMessage (depending on support of recipients phone).
+Messages will be sent as SMS or iMessage (depending on support of recipients phone), unless `subject` is supplied, in which case they will be sent as MMS or iMessage (depending on support of recipients phone, and user having turned on support for Subject on their iOS device).
 
 ### Callback
 
