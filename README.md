@@ -47,7 +47,7 @@ Composer.Cancelled - user closed the MFMessageComposeViewController by clicking 
 Composer.NotSupported - device does not support sending messages
 ```
 
-## Getting Started
+## Getting Started (and running the demo project)
 
 1. From inside your project run `npm install react-native-message-composer --save`
 2. In XCode, in the project navigator, right click `Libraries` ➜ `Add Files to [your project's name]`
