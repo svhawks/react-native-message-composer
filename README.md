@@ -4,15 +4,15 @@ React Native module bridge to iOS MFMessageComposeViewController
 
 ## API
 
-`composeMessageWithArgs` (args, callback) - launches a MFMessageComposeViewController and populates any values supplied from the args object.
+`composeMessageWithArgs(args, callback)` - launches a MFMessageComposeViewController and populates any values supplied from the args object.
 
-Both the `args` object and `callback` function are required. The `args` object can be empty though (e.g. {}) if you don't want to populate the view with any initial data.
+Both the `args` object and `callback` function are required. The `args` object can be empty though ( e.g. { } ) if you don't want to populate the view with any initial data.
 
 ### Args
 
 The args object lets you prepopulate the MFMessageComposeViewController for the user. You can use the following parameters:
 
-```js
+```
 recipients - an array of strings
 subject - string
 messageText - string
@@ -54,7 +54,8 @@ Composer.NotSupported - device does not support sending messages
 3. Go to `node_modules` ➜ `react-native-message-composer` and add `RNMessageComposer.xcodeproj`
 4. In XCode, in the project navigator, select your project. Add `libRNMessageComposer.a` to your project's `Build Phases` ➜ `Link Binary With Libraries`
 5. Click `RNMessageComposer.xcodeproj` in the project navigator and go the `Build Settings` tab. Make sure 'All' is toggled on (instead of 'Basic'). Look for `Header Search Paths` and make sure it contains both `$(SRCROOT)/../react-native/React` and `$(SRCROOT)/../../React` - mark both as `recursive`.
-5. Run your project (`Cmd+R`)
+6. Set up the project to run on your device (iOS simulator does not support sending messages)
+7. Run your project (`Cmd+R`)
 
 ## Usage Example
 
