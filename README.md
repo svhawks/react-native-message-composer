@@ -12,11 +12,11 @@ Both the `args` object and `callback` function are required. The `args` object c
 
 The args object lets you prepopulate the MFMessageComposeViewController for the user. You can use the following parameters:
 
-'''js
+```js
 recipients - an array of strings
 subject - string
 messageText - string
-'''
+```
 
 The following shows an example args object
 
@@ -38,7 +38,7 @@ Messages will be sent as SMS or iMessage (depending on support of recipients pho
 
 The callback will return one of four values, letting you know the message sending status. These are accessed via the following class constants:
 
-```js
+```
 var Composer = require('NativeModules').RNMessageComposer;
 
 Composer.Sent - the user clicked send and the message has been sent (this does not guarantee delivery, merely that the message sent successfully)
