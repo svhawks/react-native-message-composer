@@ -1,0 +1,35 @@
+{
+  "name": "react-native-message-composer",
+  "version": "0.0.1",
+  "description": "React Native module bridge to iOS MFMessageComposeViewController",
+  "main": "index.js",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/anarchicknight/react-native-message-composer.git"
+  },
+  "keywords": [
+    "react",
+    "native",
+    "react-native",
+    "bridge",
+    "text",
+    "sms",
+    "mms",
+    "iMessage",
+    "MFMessageComposeViewController",
+    "ios",
+    "react-component"
+  ],
+  "peerDependencies": {
+    "react-native": "^0.4.1"
+  },
+  "author": "Anarchic Knight <anarchicknight@gmail.com> (http://www.anarchicknight.co.uk)",
+  "license": {
+    "type": "MIT",
+    "url": "https://github.com/anarchicknight/react-native-message-composer/blob/master/LICENSE"
+  },
+  "bugs": {
+    "url": "https://github.com/anarchicknight/react-native-message-composer/issues"
+  },
+  "homepage": "https://github.com/anarchicknight/react-native-message-composer#readme"
+}
