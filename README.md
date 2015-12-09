@@ -8,6 +8,10 @@ React Native module bridge to iOS MFMessageComposeViewController
 
 Both the `args` object and `callback` function are required. The `args` object can be empty though ( e.g. { } ) if you don't want to populate the view with any initial data.
 
+`messagingSupported(callback)` - returns a boolean value indicating whether or not
+the device supports messaging. This allows you to determine whether or not messaging
+will work before actually attempting to open a message.
+
 ### Args
 
 The args object lets you prepopulate the MFMessageComposeViewController for the user. You can use the following parameters:
@@ -62,6 +66,10 @@ Composer.NotSupported - device does not support sending messages
 ```js
 var React = require('react-native');
 var Composer = require('NativeModules').RNMessageComposer;
+
+Composer.messagingSupported(supported => {
+	//do something like change the view based on whether or not messaging is supported
+});
 
 // inside your code where you would like to send a message
 Composer.composeMessageWithArgs(

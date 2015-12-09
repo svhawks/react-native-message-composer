@@ -42,6 +42,11 @@
 
 RCT_EXPORT_MODULE()
 
+RCT_EXPORT_METHOD(messagingSupported:(RCTResponseSenderBlock)callback)
+{
+    callback(@[[NSNumber numberWithBool:[MFMessageComposeViewController canSendText]]]);
+}
+
 RCT_EXPORT_METHOD(composeMessageWithArgs:(NSDictionary *)args callback:(RCTResponseSenderBlock)callback)
 {
     // check the device can actually send messages - return from method if not supported
