@@ -47,6 +47,8 @@ Composer.Cancelled - user closed the MFMessageComposeViewController by clicking 
 Composer.NotSupported - device does not support sending messages
 ```
 
+---
+
 `messagingSupported(callback)`
 
 This method returns a boolean value as a callback indicating whether or not the device supports messaging. This allows you to determine whether or not messaging will work before actually attempting to open a message, and whether you should show/hide certain UI components because of this.
