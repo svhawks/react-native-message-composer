@@ -4,17 +4,13 @@ React Native module bridge to iOS MFMessageComposeViewController
 
 ## API
 
-`composeMessageWithArgs(args, callback)` - launches a MFMessageComposeViewController and populates any values supplied from the args object.
+`composeMessageWithArgs(args, callback)`
 
-Both the `args` object and `callback` function are required. The `args` object can be empty though ( e.g. { } ) if you don't want to populate the view with any initial data.
+This method launches a MFMessageComposeViewController and populates any values supplied from the args object.
 
-`messagingSupported(callback)` - returns a boolean value indicating whether or not
-the device supports messaging. This allows you to determine whether or not messaging
-will work before actually attempting to open a message.
+###### Args
 
-### Args
-
-The args object lets you prepopulate the MFMessageComposeViewController for the user. You can use the following parameters:
+The args object is required and lets you prepopulate the MFMessageComposeViewController for the user. You can use the following parameters:
 
 ```
 recipients - an array of strings
@@ -34,13 +30,13 @@ The following shows an example args object
 }
 ```
 
-All the args parameters are optional. Simply omit any parameter not required from the args object.
+All the args parameters are optional. Simply omit any parameter not required from the args object. If you don't want to supply any initial data then set the args object to be empty (e.g. {}).
 
 Messages will be sent as SMS or iMessage (depending on support of recipients phone), unless `subject` is supplied, in which case they will be sent as MMS or iMessage (depending on support of recipients phone, and user having turned on support for Subject on their iOS device).
 
-### Callback
+###### Callback
 
-The callback will return one of four values, letting you know the message sending status. These are accessed via the following class constants:
+The callback is required and will return one of four values, letting you know the message sending status. These are accessed via the following class constants:
 
 ```
 var Composer = require('NativeModules').RNMessageComposer;
@@ -51,7 +47,11 @@ Composer.Cancelled - user closed the MFMessageComposeViewController by clicking 
 Composer.NotSupported - device does not support sending messages
 ```
 
-## Getting Started (and running the demo project)
+`messagingSupported(callback)`
+
+This method returns a boolean value as a callback indicating whether or not the device supports messaging. This allows you to determine whether or not messaging will work before actually attempting to open a message, and whether you should show/hide certain UI components because of this.
+
+## Getting Started
 
 1. From inside your project run `npm install react-native-message-composer --save`
 2. In XCode, in the project navigator, right click `Libraries` ➜ `Add Files to [your project's name]`
@@ -68,7 +68,9 @@ var React = require('react-native');
 var Composer = require('NativeModules').RNMessageComposer;
 
 Composer.messagingSupported(supported => {
-	//do something like change the view based on whether or not messaging is supported
+	// do something like change the view based on whether or not messaging is supported
+	// for example you could use this in componentWill/DidMount and show/hide components based on result
+	// you could also use this to set state within app which would make showing/hiding components easier
 });
 
 // inside your code where you would like to send a message
@@ -99,8 +101,6 @@ Composer.composeMessageWithArgs(
 	}
 );
 ```
-
-There is an example project supplied with the repo in the RNMessageComposerDemo folder. The sample app needs to be run on a device as the simulator does not support sending messages.
 
 ## TODO
 
