@@ -55,6 +55,8 @@ This method returns a boolean value as a callback indicating whether or not the 
 
 ## Getting Started
 
+### Manual
+
 1. From inside your project run `npm install react-native-message-composer --save`
 2. In XCode, in the project navigator, right click `Libraries` ➜ `Add Files to [your project's name]`
 3. Go to `node_modules` ➜ `react-native-message-composer` and add `RNMessageComposer.xcodeproj`
@@ -62,6 +64,11 @@ This method returns a boolean value as a callback indicating whether or not the 
 5. Click `RNMessageComposer.xcodeproj` in the project navigator and go the `Build Settings` tab. Make sure 'All' is toggled on (instead of 'Basic'). Look for `Header Search Paths` and make sure it contains both `$(SRCROOT)/../react-native/React` and `$(SRCROOT)/../../React` - mark both as `recursive`.
 6. Set up the project to run on your device (iOS simulator does not support sending messages)
 7. Run your project (`Cmd+R`)
+
+### rnpm
+
+1. From inside your project run `npm install react-native-message-composer --save`
+2. run `rnpm link`
 
 ## Usage Example
 

@@ -1,6 +1,6 @@
 {
   "name": "react-native-message-composer",
-  "version": "0.0.4",
+  "version": "0.0.5",
   "description": "React Native module bridge to iOS MFMessageComposeViewController",
   "main": "index.js",
   "repository": {
@@ -20,9 +20,6 @@
     "ios",
     "react-component"
   ],
-  "peerDependencies": {
-    "react-native": ">=0.4.1"
-  },
   "author": "Anarchic Knight <anarchicknight@gmail.com> (http://www.anarchicknight.co.uk)",
   "license": {
     "type": "MIT",
