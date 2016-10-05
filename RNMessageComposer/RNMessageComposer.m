@@ -18,6 +18,8 @@
 {
     NSMutableArray *composeViews;
     NSMutableArray *composeCallbacks;
+    BOOL presentAnimated;
+    BOOL dismissAnimated;
 }
 
 - (NSDictionary *)constantsToExport
@@ -36,6 +38,8 @@
     {
         composeCallbacks = [[NSMutableArray alloc] init];
         composeViews = [[NSMutableArray alloc] init];
+        presentAnimated = YES;
+        dismissAnimated = YES;
     }
     return self;
 }
@@ -112,9 +116,47 @@ RCT_EXPORT_METHOD(composeMessageWithArgs:(NSDictionary *)args callback:(RCTRespo
     {
         mcvc.body = [RCTConvert NSString:args[@"messageText"]];
     }
+
+    if(args[@"presentAnimated"])
+    {
+        presentAnimated = [RCTConvert BOOL:args[@"presentAnimated"]];
+    }
+
+    if(args[@"dismissAnimated"])
+    {
+        dismissAnimated = [RCTConvert BOOL:args[@"dismissAnimated"]];
+    }
+
+    if([MFMessageComposeViewController canSendAttachments]) {
+        if(args[@"attachments"])
+        {
+            if([args[@"attachments"] isKindOfClass:[NSArray class]])
+            {
+                NSArray *attachments = args[@"attachments"];
+                for(id attachment in attachments)
+                {
+                    if([attachment isKindOfClass:[NSDictionary class]])
+                    {
+                        if ([attachment objectForKey:@"url"] && [attachment objectForKey:@"typeIdentifier"])
+                        {
+                            NSURL *url = [NSURL URLWithString:[attachment objectForKey:@"url"]];
+                            NSString *typeIdentifier = [attachment objectForKey:@"typeIdentifier"];
+                            NSString *filename = [attachment objectForKey:@"filename"];
+
+                            if (![mcvc addAttachmentData:[NSData dataWithContentsOfURL:url]
+                                       typeIdentifier:typeIdentifier
+                                             filename:filename]) {
+                                NSLog(@"attachment failed to add: %@", attachment);
+                            }
+                        }
+                    }
+                }
+            }
+        }
+    }
     
     UIViewController *vc = [[[[UIApplication sharedApplication] delegate] window] rootViewController];
-    [vc presentViewController:mcvc animated:YES completion:nil];
+    [vc presentViewController:mcvc animated:presentAnimated completion:nil];
     
     [composeViews addObject:mcvc];
     [composeCallbacks addObject:callback];
@@ -143,7 +185,7 @@ RCT_EXPORT_METHOD(composeMessageWithArgs:(NSDictionary *)args callback:(RCTRespo
     }
     
     UIViewController *vc = [[[[UIApplication sharedApplication] delegate] window] rootViewController];
-    [vc dismissViewControllerAnimated:YES completion:nil];
+    [vc dismissViewControllerAnimated:dismissAnimated completion:nil];
     
     [composeViews removeObjectAtIndex:index];
     [composeCallbacks removeObjectAtIndex:index];

@@ -1,6 +1,6 @@
 {
   "name": "react-native-message-composer",
-  "version": "0.0.5",
+  "version": "0.1.0",
   "description": "React Native module bridge to iOS MFMessageComposeViewController",
   "main": "index.js",
   "repository": {
@@ -16,6 +16,7 @@
     "sms",
     "mms",
     "iMessage",
+    "attachments",
     "MFMessageComposeViewController",
     "ios",
     "react-component"

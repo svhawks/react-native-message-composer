@@ -16,7 +16,27 @@ The args object is required and lets you prepopulate the MFMessageComposeViewCon
 recipients - an array of strings
 subject - string
 messageText - string
+attachments - an array of objects
+presentAnimated - boolean (animate the appearance of the message composer - true by default)
+dismissAnimated - boolean (animate the closing of the message composer - true by default)
 ```
+
+attachments array:
+```js
+  [
+    {
+      url: 'http://...',               // required
+      typeIdentifier: 'public.jpeg',   // required
+      filename: 'pic.jpg',             // optional
+     }
+  ]
+```
+
+The url can be a web url to an image, video etc but be careful as by default http urls will not work without making changes to the info.plist in the native project. The url can also be a file path on the device, you could for example use https://facebook.github.io/react-native/docs/cameraroll.html to retrieve info on photos stored on the device.
+
+For `typeIdentifier` see https://developer.apple.com/library/content/documentation/Miscellaneous/Reference/UTIRef/Articles/System-DeclaredUniformTypeIdentifiers.html
+
+For further info on attachments view https://developer.apple.com/reference/messageui/mfmessagecomposeviewcontroller/1614069-addattachmentdata
 
 The following shows an example args object
 
@@ -25,8 +45,8 @@ The following shows an example args object
 	'recipients':[
 		'0123456789', '059847362', '345123987'
 	],
-	'subject':'Sample message subject',
-	'messageText':'Sample message text'
+	'messageText':'Sample message text',
+	'dismissAnimated': false
 }
 ```
 
@@ -65,16 +85,20 @@ This method returns a boolean value as a callback indicating whether or not the 
 6. Set up the project to run on your device (iOS simulator does not support sending messages)
 7. Run your project (`Cmd+R`)
 
-### rnpm
+### rnpm (react-native link)
 
 1. From inside your project run `npm install react-native-message-composer --save`
-2. run `rnpm link`
+2. run `react-native link`
 
 ## Usage Example
 
 ```js
-var React = require('react-native');
-var Composer = require('NativeModules').RNMessageComposer;
+import React from 'react';
+import Composer from 'react-native-message-composer';
+
+// old way of accessing module is still supported too although no longer recommended
+// import { NativeModules } from 'react-native';
+// const Composer = NativeModules.RNMessageComposer;
 
 Composer.messagingSupported(supported => {
 	// do something like change the view based on whether or not messaging is supported
@@ -87,7 +111,9 @@ Composer.composeMessageWithArgs(
 	{
 	    'messageText':'My sample message body text',
 	    'subject':'My Sample Subject',
-	    'recipients':['0987654321', '0123456789']
+	    'recipients':['0987654321', '0123456789'],
+		'presentAnimated': true,
+		'dismissAnimated': false
    	},
 	(result) => {
 		switch(result) {
@@ -113,7 +139,7 @@ Composer.composeMessageWithArgs(
 
 ## TODO
 
-- [ ] Add support for message attachments
+- [x] Add support for message attachments
 - [ ] Fix issue with a second MFMessageComposeViewController seeming to be present if rotate device whilst MFMessageComposeViewController is open
 - [ ] Look at implementing MFMessageComposeViewControllerTextMessageAvailabilityDidChangeNotification to listen for changes to the MFMessageComposeViewController `canSendText` class method
 
