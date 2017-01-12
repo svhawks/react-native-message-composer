@@ -7,7 +7,7 @@
 //
 
 #import "RNMessageComposer.h"
-#import "RCTConvert.h"
+#import <React/RCTConvert.h>
 #import <MessageUI/MessageUI.h>
 
 @interface RNMessageComposer() <MFMessageComposeViewControllerDelegate>
@@ -59,10 +59,10 @@ RCT_EXPORT_METHOD(composeMessageWithArgs:(NSDictionary *)args callback:(RCTRespo
         callback(@[@"notsupported"]);
         return;
     }
-    
+
     MFMessageComposeViewController *mcvc = [[MFMessageComposeViewController alloc] init];
     mcvc.messageComposeDelegate = self;
-    
+
     if(args[@"recipients"])
     {
         // check that recipients was passed as an NSArray
@@ -72,7 +72,7 @@ RCT_EXPORT_METHOD(composeMessageWithArgs:(NSDictionary *)args callback:(RCTRespo
             if(recipients.count > 0)
             {
                 NSMutableArray *validRecipientTypes = [[NSMutableArray alloc] init];
-                
+
                 // Check type of each item in NSArray and only use it if it was provided as an NSString.
                 // We could be more lenient here and just use RCTConvert on all values even if not
                 // provided as NSString originally. For now I prefer being more strict.
@@ -102,7 +102,7 @@ RCT_EXPORT_METHOD(composeMessageWithArgs:(NSDictionary *)args callback:(RCTRespo
             RCTLog(@"recipients must be supplied as an array. Ignoring the values provided");
         }
     }
-    
+
     // check to see if messages support subjects - if they do check if a subject has been supplied
     if([MFMessageComposeViewController canSendSubject])
     {
@@ -111,7 +111,7 @@ RCT_EXPORT_METHOD(composeMessageWithArgs:(NSDictionary *)args callback:(RCTRespo
             mcvc.subject = [RCTConvert NSString:args[@"subject"]];
         }
     }
-    
+
     if(args[@"messageText"])
     {
         mcvc.body = [RCTConvert NSString:args[@"messageText"]];
@@ -154,10 +154,10 @@ RCT_EXPORT_METHOD(composeMessageWithArgs:(NSDictionary *)args callback:(RCTRespo
             }
         }
     }
-    
+
     UIViewController *vc = [[[[UIApplication sharedApplication] delegate] window] rootViewController];
     [vc presentViewController:mcvc animated:presentAnimated completion:nil];
-    
+
     [composeViews addObject:mcvc];
     [composeCallbacks addObject:callback];
 }
@@ -169,7 +169,7 @@ RCT_EXPORT_METHOD(composeMessageWithArgs:(NSDictionary *)args callback:(RCTRespo
     NSUInteger index = [composeViews indexOfObject:controller];
     RCTAssert(index != NSNotFound, @"Dismissed view controller was not recognised");
     RCTResponseSenderBlock callback = composeCallbacks[index];
-    
+
     switch (result) {
         case MessageComposeResultCancelled:
             callback(@[@"cancelled"]);
@@ -183,10 +183,10 @@ RCT_EXPORT_METHOD(composeMessageWithArgs:(NSDictionary *)args callback:(RCTRespo
         default:
             break;
     }
-    
+
     UIViewController *vc = [[[[UIApplication sharedApplication] delegate] window] rootViewController];
     [vc dismissViewControllerAnimated:dismissAnimated completion:nil];
-    
+
     [composeViews removeObjectAtIndex:index];
     [composeCallbacks removeObjectAtIndex:index];
 }
