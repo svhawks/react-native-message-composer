@@ -4,6 +4,10 @@
 
 React Native module bridge to iOS MFMessageComposeViewController
 
+**RN >= 0.40** Please use 1.0.0 of this library or higher
+
+**RN < 0.40.0** Please use 0.1.0 of this library
+
 ## API
 
 `composeMessageWithArgs(args, callback)`
