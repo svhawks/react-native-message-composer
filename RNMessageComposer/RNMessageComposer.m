@@ -155,8 +155,11 @@ RCT_EXPORT_METHOD(composeMessageWithArgs:(NSDictionary *)args callback:(RCTRespo
         }
     }
 
-    UIViewController *vc = [[[[UIApplication sharedApplication] delegate] window] rootViewController];
-    [vc presentViewController:mcvc animated:presentAnimated completion:nil];
+    UIViewController *root = [[[[UIApplication sharedApplication] delegate] window] rootViewController];
+    while (root.presentedViewController) {
+        root = root.presentedViewController;
+    }
+    [root presentViewController:mcvc animated:presentAnimated completion:nil];
 
     [composeViews addObject:mcvc];
     [composeCallbacks addObject:callback];
