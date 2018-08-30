@@ -188,6 +188,9 @@ RCT_EXPORT_METHOD(composeMessageWithArgs:(NSDictionary *)args callback:(RCTRespo
     }
 
     UIViewController *vc = [[[[UIApplication sharedApplication] delegate] window] rootViewController];
+    while (vc.presentedViewController && vc != controller) {
+      vc = vc.presentedViewController;
+    }
     [vc dismissViewControllerAnimated:dismissAnimated completion:nil];
 
     [composeViews removeObjectAtIndex:index];
